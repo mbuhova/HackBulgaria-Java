@@ -1,8 +1,11 @@
 package com.hackbulgaria.corejava;
 
+import java.awt.List;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import javax.activity.InvalidActivityException;
 
 public class Problems2Impl implements Problems2 {
 
@@ -159,31 +162,113 @@ public class Problems2Impl implements Problems2 {
 
     @Override
     public int getOddOccurrence(int[] array) {
-        // TODO Auto-generated method stub
-        return 0;
+        if (array == null) {
+            throw new NullPointerException();
+        }
+        
+        if (array.length == 0) {
+            throw new ArithmeticException("Cannot find number in empty collection");
+        }
+        int[] copy = array.clone();
+        Arrays.sort(copy);
+        int counter = 1;
+        int current = copy[0];
+        
+        for (int i = 1; i < copy.length; i++) {
+            if (copy[i] == current) {
+                counter++;
+            }
+            else {
+                if (counter % 2 == 1) {
+                    return current;
+                }
+                current = copy[i];
+                counter = 1;
+            }
+        }
+        return current;
     }
 
     @Override
     public long pow(int a, int b) {
-        // TODO Auto-generated method stub
-        return 0;
+        long result = 1;
+        for (int i = 0; i < b; i++) {
+            result *= result;
+        }
+        return result;
     }
 
     @Override
     public long maximalScalarSum(int[] a, int[] b) {
-        // TODO Auto-generated method stub
-        return 0;
+        if (a == null || b == null) {
+            throw new NullPointerException();
+        }
+        
+        if (a.length != b.length) {
+            throw new ArithmeticException();
+        }
+        
+        int[] copyA = a.clone();
+        int[] copyB = b.clone();
+        Arrays.sort(copyA);
+        Arrays.sort(copyB);
+        long result = 0;
+        
+        for (int i = 0; i < copyB.length; i++) {
+            result += (copyA[i] * copyB[i]);
+        }
+        return result;
     }
 
     @Override
     public int maxSpan(int[] array) {
-        // TODO Auto-generated method stub
-        return 0;
+        if (array == null) {
+            throw new NullPointerException();
+        }
+        
+        if (array.length == 0) {
+            throw new ArithmeticException(
+                    "Cannot find span between elements in an empty collection");
+        }
+        int maxSpan = 1;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = array.length - 1; j >= i; j--) {
+                if (array[i] == array[j]) {
+                    int span = j - i + 1;
+                    if (span > maxSpan) {
+                        maxSpan = span;
+                    }
+                }
+            }
+        }
+        return maxSpan;
     }
 
     @Override
     public boolean canBalance(int[] array) {
-        // TODO Auto-generated method stub
+        if (array == null) {
+            throw new NullPointerException();
+        }
+        
+        if (array.length == 0) {
+            throw new ArithmeticException(
+                    "Cannot ficheck balance in an empty collection");
+        }
+        
+        long leftSideSum = 0;
+        long rightSideSum = 0;
+        
+        for (int i = 0; i < array.length; i++) {
+            rightSideSum += array[i];
+        }
+        
+        for (int i = 0; i < array.length; i++) {
+            leftSideSum += array[i];
+            rightSideSum -= array[i];
+            if (leftSideSum == rightSideSum) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -195,8 +280,16 @@ public class Problems2Impl implements Problems2 {
 
     @Override
     public String reverseMe(String argument) {
-        // TODO Auto-generated method stub
-        return null;
+        if (argument == null) {
+            throw new NullPointerException();
+        }
+        
+        StringBuilder result = new StringBuilder(argument.length());
+        
+        for (int i = argument.length() - 1; i >= 0; i--) {
+            result.append(argument.charAt(i));
+        }
+        return result.toString();
     }
 
     @Override
@@ -207,8 +300,17 @@ public class Problems2Impl implements Problems2 {
 
     @Override
     public String reverseEveryWord(String arg) {
-        // TODO Auto-generated method stub
-        return null;
+        if (arg == null) {
+            throw  new NullPointerException();
+        }
+        String[] words = arg.split(" ");
+        StringBuilder result = new StringBuilder();
+        
+        for (int i = 0; i < words.length; i++) {
+            result.append(reverseMe(words[i]) + " ");
+        }
+        result = result.deleteCharAt(result.length() - 1);
+        return result.toString();
     }
 
     @Override

@@ -193,7 +193,7 @@ public class Problems2Impl implements Problems2 {
     public long pow(int a, int b) {
         long result = 1;
         for (int i = 0; i < b; i++) {
-            result *= result;
+            result *= a;
         }
         return result;
     }
@@ -294,8 +294,14 @@ public class Problems2Impl implements Problems2 {
 
     @Override
     public String copyEveryChar(String input, int k) {
-        // TODO Auto-generated method stub
-        return null;
+        StringBuilder result = new StringBuilder();
+        
+        for(int i = 0; i < input.length(); i++) {
+            for(int j = 0; j < k; j++) {
+                result.append(input.charAt(i));
+            }
+        }
+        return result.toString();
     }
 
     @Override
@@ -315,20 +321,42 @@ public class Problems2Impl implements Problems2 {
 
     @Override
     public boolean isPalindrome(String argument) {
-        // TODO Auto-generated method stub
+        String reversed = this.reverseMe(argument);
+        if(reversed.equals(argument)) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean isPalindrome(int number) {
-        // TODO Auto-generated method stub
+        Integer num = new Integer(number);
+        String argument = num.toString();
+        String reversed = this.reverseMe(argument);
+        if(reversed.equals(argument)) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public int getPalindromeLength(String input) {
-        // TODO Auto-generated method stub
-        return 0;
+        String[] parts = input.split("[*]");
+        int length = 0;
+        
+        if(parts.length != 2){
+            return length;
+        }
+        
+        for(int i = parts[0].length() - 1, j = 0; i >= 0 && j < parts[1].length(); i--, j++){
+            if(parts[0].charAt(i) == parts[1].charAt(j)) {
+                length++;
+            }
+            else{
+                return length;
+            }
+        }
+        return length;
     }
 
     @Override
@@ -362,14 +390,37 @@ public class Problems2Impl implements Problems2 {
 
     @Override
     public String decodeURL(String input) {
-        // TODO Auto-generated method stub
-        return null;
+        return input.replace("%20", " ").replace("%3A", ":").
+                replace("%3D", "?").replace("%2F", "/");
     }
 
     @Override
     public int sumOfNumbers(String input) {
-        // TODO Auto-generated method stub
-        return 0;
+        int sum = 0;
+        StringBuilder number = new StringBuilder();
+        
+        for(int i = 0; i < input.length(); i++){
+            if(Character.isDigit(input.charAt(i))){
+                if(i > 0 && input.charAt(i - 1) == '-'){
+                    number.append('-');
+                }
+                number.append(input.charAt(i));
+            }
+            else {
+                if(number.length() > 0){
+                    int currentNumber = Integer.parseInt(number.toString());
+                    sum += currentNumber;
+                    number.setLength(0);
+                }            
+            }
+        }
+        
+        if(number.length() > 0) {
+            int currentNumber = Integer.parseInt(number.toString());
+            sum += currentNumber;
+        }
+        
+        return sum;
     }
 
     @Override
@@ -423,8 +474,17 @@ public class Problems2Impl implements Problems2 {
     }
 
     @Override
-    public boolean hasAnagramOf(String string, String string2) {
-        // TODO Auto-generated method stub
+    public boolean hasAnagramOf(String a, String b) {      
+        if(a.length() > b.length()){
+            return false; 
+        }
+        
+        for(int i = 0; i <= b.length() - a.length(); i++){
+            String current = b.substring(i, a.length() + i);
+            if(this.areAnagrams(a, current)){
+                return true;
+            }
+        }
         return false;
     }
 

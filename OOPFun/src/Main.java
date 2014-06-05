@@ -16,6 +16,14 @@ public class Main {
         Pair pairOne = new Pair("Java", "Core");
         Pair pairTwo = new Pair("Java", "Core");
         System.out.println(pairOne.equals(pairTwo));
+        
+        StackImpl stack = new StackImpl();
+        stack.push("AAA");
+        stack.push("BBB");
+        stack.push("CCC");
+        System.out.println(stack.length());
+        System.out.println(stack.pop());
+        System.out.println(stack.length());
     }
 
 }

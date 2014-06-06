@@ -24,6 +24,25 @@ public class Main {
         System.out.println(stack.length());
         System.out.println(stack.pop());
         System.out.println(stack.length());
+        
+        MyLinkedList list = new MyLinkedList();
+        list.addFirst(1);
+        list.addLast(2);
+        list.addFirst(0);
+        list.addAt(12, 1);
+        list.removeAt(1);
+        list.removeAt(2);
+        list.addAt(5, 0);
+        System.out.println(list);
+        System.out.println(list.size());
+        
+        StackImpl2 stack2 = new StackImpl2();
+        stack2.push(1);
+        stack2.push(2);
+        stack2.push(3);
+        System.out.println(stack2.length());
+        System.out.println(stack2.pop());
+        System.out.println(stack2.length());
     }
 
 }

@@ -28,7 +28,10 @@ public class Node {
     
     public void addAfter(int number){
         Node newNode = new Node(number, this, this.next);
-        this.next.previous = newNode;
+        
+        if(this.next != null){
+            this.next.previous = newNode;
+        }     
         this.next = newNode;
     }
     
@@ -39,5 +42,17 @@ public class Node {
             this.previous.next = newNode;
         }      
         this.previous = newNode;
+    }
+    
+    public void remove(){
+        if(this.previous != null){
+            this.previous.next = this.next;
+        }
+        
+        if(this.next != null){
+            this.next.previous = this.previous;
+        }
+        this.previous = null;
+        this.next = null;
     }
 }

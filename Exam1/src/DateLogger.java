@@ -24,14 +24,11 @@ public class DateLogger extends Logger{
     public void log(int level, String message){
         if(level <= 0){
             throw new RuntimeException("Invalid level value. Level should be a positive number.");
-        }
+        }       
         
-        DateFormat dateFormat = new SimpleDateFormat("| HH:mm:ss dd.MM.yyyy |");
-        Date date = new Date();
-        if(printEverything){
-            System.out.println(dateFormat.format(date) + " " + level + " => " + message);
-        }
-        else if(level <= this.level){
+        if(printEverything || level <= this.level){
+            DateFormat dateFormat = new SimpleDateFormat("| HH:mm:ss dd.MM.yyyy |");
+            Date date = new Date();
             System.out.println(dateFormat.format(date) + " " + level + " => " + message);
         }
     }
